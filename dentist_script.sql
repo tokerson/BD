@@ -19,9 +19,9 @@ USE `mydb` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`bonifikarta` (
   `idbonifikarta` INT NOT NULL,
-  `typ` INT NOT NULL,
-  `mozliwy_rabat` INT NOT NULL,
-  `data_waznosci` DATE NULL,
+  `typ` INT NULL DEFAULT 0,
+  `mozliwy_rabat` INT NOT NULL DEFAULT 0,
+  `data_waznosci` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`idbonifikarta`))
 ENGINE = InnoDB;
 
@@ -30,13 +30,12 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Pacjenci`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Pacjenci` (
-  `PESEL` INT NOT NULL,
+  `PESEL` VARCHAR(11) NOT NULL,
   `imię` VARCHAR(45) NOT NULL,
   `nazwisko` VARCHAR(45) NOT NULL,
   `wiek` INT NOT NULL,
-  `nr_telefonu` VARCHAR(12) NULL,
-  `nr_bonifikarty` INT NULL,
-  `bonifikarta_idbonifikarta` INT NOT NULL,
+  `nr_telefonu` VARCHAR(12) NULL DEFAULT NULL,
+  `bonifikarta_idbonifikarta` INT NULL DEFAULT NULL,
   PRIMARY KEY (`PESEL`),
   INDEX `fk_Pacjenci_bonifikarta1_idx` (`bonifikarta_idbonifikarta` ASC),
   CONSTRAINT `fk_Pacjenci_bonifikarta1`
@@ -53,8 +52,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `mydb`.`Zabiegi` (
   `idZabiegu` INT NOT NULL AUTO_INCREMENT,
   `nazwa_zabiegu` VARCHAR(80) NOT NULL,
-  `cena` INT NOT NULL,
-  `narkoza` TINYINT(1) NOT NULL,
+  `cena` INT NOT NULL DEFAULT 0,
+  `narkoza` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`idZabiegu`))
 ENGINE = InnoDB;
 
@@ -67,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Rejestracje` (
   `godzina` TIME(6) NOT NULL,
   `data` DATE NOT NULL,
   `zabieg` INT NOT NULL,
-  `pacjent` INT NOT NULL,
+  `pacjent` VARCHAR(11) NOT NULL,
   PRIMARY KEY (`idRejestracji`, `zabieg`, `pacjent`),
   INDEX `zabieg_idx` (`zabieg` ASC),
   INDEX `pacjent_idx` (`pacjent` ASC),
@@ -92,9 +91,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Dentysci` (
   `idDentysty` INT NOT NULL AUTO_INCREMENT,
   `imię` VARCHAR(45) NOT NULL,
   `nazwisko` VARCHAR(45) NOT NULL,
-  `wynagrodzenie` INT NOT NULL,
-  `data zatrudnienia` DATE NULL,
-  `nr_telefonu` VARCHAR(12) NOT NULL,
+  `wynagrodzenie` INT NOT NULL DEFAULT 0,
+  `data zatrudnienia` DATE NULL DEFAULT NULL,
+  `nr_telefonu` VARCHAR(12) NULL DEFAULT NULL,
   PRIMARY KEY (`idDentysty`))
 ENGINE = InnoDB;
 
