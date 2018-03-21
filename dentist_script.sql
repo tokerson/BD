@@ -18,7 +18,7 @@ USE `mydb` ;
 -- Table `mydb`.`bonifikarta`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`bonifikarta` (
-  `idbonifikarta` INT NOT NULL,
+  `idbonifikarta` INT NOT NULL AUTO_INCREMENT,
   `typ` INT NULL DEFAULT 0,
   `mozliwy_rabat` INT NOT NULL DEFAULT 0,
   `data_waznosci` DATE NULL DEFAULT NULL,
