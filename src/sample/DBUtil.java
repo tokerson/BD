@@ -13,4 +13,8 @@ public class DBUtil {
     public static Connection getConnection() throws SQLException{
         return DriverManager.getConnection(dbUrl,username,password);
     }
+
+    public static void showError(SQLException e ){
+        System.err.println("Error: " + e.getMessage() +"\nError Code: " + e.getErrorCode());
+    }
 }

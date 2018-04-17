@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Main extends Application {
@@ -23,10 +22,8 @@ public class Main extends Application {
             connection = DBUtil.getConnection();
         }
         catch(SQLException e){
-            e.printStackTrace();
-            System.out.println("Error connecting to database");
+            DBUtil.showError(e);
         }
-        if(connection != null) System.out.println("well done");
         primaryStage.setScene(new Scene(root, 970, 600));//golden proportion (a+b)/a = a/b
         primaryStage.setResizable(false);
         primaryStage.show();

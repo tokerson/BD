@@ -1,13 +1,11 @@
 package sample;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+
 
 public class Controller {
     @FXML
@@ -25,26 +23,15 @@ public class Controller {
 
     @FXML
     public void initialize(){
-        addChoiceBox.setItems(FXCollections.observableArrayList("Pacjent","Dentysta"));
-        addChoiceBox.valueProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                addButton.setDisable(false);
-            }
-        });
-        deleteChoiceBox.setItems(FXCollections.observableArrayList("Pacjent","Dentysta"));
-        deleteChoiceBox.valueProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                deleteButton.setDisable(false);
-            }
-        });
-        editChoiceBox.setItems(FXCollections.observableArrayList("Pacjent","Dentysta"));
-        editChoiceBox.valueProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                editButton.setDisable(false);
-            }
-        });
+        ObservableList<String> choiceBoxes = FXCollections.observableArrayList("Pacjent","Dentysta");
+        ChoiceBox[] choices = new ChoiceBox[] {addChoiceBox,deleteChoiceBox,editChoiceBox};
+
+        for(ChoiceBox choiceBox : choices){
+            choiceBox.setItems(choiceBoxes);
+        }
+
+        addChoiceBox.valueProperty().addListener((observable, oldValue, newValue) -> addButton.setDisable(false));
+        deleteChoiceBox.valueProperty().addListener((observable, oldValue, newValue) -> deleteButton.setDisable(false));
+        editChoiceBox.valueProperty().addListener((observable, oldValue, newValue) -> editButton.setDisable(false));
     }
 }
