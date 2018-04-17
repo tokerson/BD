@@ -6,13 +6,29 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class Main extends Application {
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+
+        Connection connection = null;
+        try {
+            connection = DBUtil.getConnection();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            System.out.println("Error connecting to database");
+        }
+        if(connection != null) System.out.println("well done");
+        primaryStage.setScene(new Scene(root, 970, 600));//golden proportion (a+b)/a = a/b
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
