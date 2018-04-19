@@ -14,17 +14,17 @@
 
 <BorderPane id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <center>
-      <TabPane id="tabPane" prefHeight="600.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab id="patientTab" text="Pacjenci">
                <content>
-                  <TableView prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="tableView" editable="true" prefHeight="200.0" prefWidth="200.0">
                     <columns>
-                      <TableColumn prefWidth="114.0" text="imię" />
-                      <TableColumn prefWidth="157.0" text="nazwisko" />
-                        <TableColumn minWidth="100.0" prefWidth="129.0" text="PESEL" />
-                        <TableColumn prefWidth="34.0" text="wiek" />
-                        <TableColumn minWidth="100.0" prefWidth="166.0" text="numer telefonu" />
+                      <TableColumn fx:id="pName" prefWidth="114.0" text="imię" />
+                      <TableColumn fx:id="pNazwisko" prefWidth="157.0" text="nazwisko" />
+                        <TableColumn fx:id="pID" minWidth="100.0" prefWidth="129.0" text="PESEL" />
+                        <TableColumn fx:id="pAge" prefWidth="34.0" text="wiek" />
+                        <TableColumn fx:id="pHone" minWidth="100.0" prefWidth="166.0" text="numer telefonu" />
                     </columns>
                   </TableView>
                </content>
@@ -59,17 +59,17 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" prefHeight="39.0" prefWidth="237.0" text="Dodaj">
+            <Button fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#addPatient" prefHeight="39.0" prefWidth="237.0" text="Dodaj">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="editButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" prefHeight="39.0" prefWidth="243.0" text="Edytuj" GridPane.rowIndex="1">
+            <Button fx:id="editButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" prefHeight="39.0" prefWidth="237.0" text="Edytuj" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="deleteButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="240.0" text="Usuń" GridPane.rowIndex="2">
+            <Button fx:id="deleteButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="237.0" text="Usuń" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>

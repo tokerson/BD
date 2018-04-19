@@ -11,13 +11,13 @@ import java.sql.SQLException;
 
 public class Main extends Application {
 
+    Connection connection = null;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Hello World");
 
-        Connection connection = null;
         try {
             connection = DBUtil.getConnection();
         }
