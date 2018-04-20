@@ -18,10 +18,10 @@
         <tabs>
           <Tab id="patientTab" text="Pacjenci">
                <content>
-                  <TableView fx:id="tableView" editable="true" prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="patientTableView" editable="true" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="pName" prefWidth="114.0" text="imię" />
-                      <TableColumn fx:id="pNazwisko" prefWidth="157.0" text="nazwisko" />
+                      <TableColumn fx:id="pSurname" prefWidth="157.0" text="nazwisko" />
                         <TableColumn fx:id="pID" minWidth="100.0" prefWidth="129.0" text="PESEL" />
                         <TableColumn fx:id="pAge" prefWidth="34.0" text="wiek" />
                         <TableColumn fx:id="pHone" minWidth="100.0" prefWidth="166.0" text="numer telefonu" />
@@ -32,14 +32,14 @@
           <Tab id="dentistTab" text="Dentyści">
            
                <content>
-                  <TableView prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="dentistTableView" prefHeight="200.0" prefWidth="200.0">
                     <columns>
-                        <TableColumn prefWidth="32.0" text="id" />
-                      <TableColumn prefWidth="105.0" text="imię" />
-                      <TableColumn prefWidth="167.0" text="nazwisko" />
-                        <TableColumn prefWidth="69.0" text="zarobki" />
-                        <TableColumn minWidth="5.0" prefWidth="109.0" text="data zatrudnienia" />
-                        <TableColumn prefWidth="127.0" text="numer telefonu" />
+                        <TableColumn fx:id="dID" prefWidth="32.0" text="id" />
+                      <TableColumn fx:id="dName" prefWidth="105.0" text="imię" />
+                      <TableColumn fx:id="dSurname" prefWidth="167.0" text="nazwisko" />
+                        <TableColumn fx:id="dSalary" prefWidth="69.0" text="zarobki" />
+                        <TableColumn fx:id="dDate" minWidth="5.0" prefWidth="109.0" text="data zatrudnienia" />
+                        <TableColumn fx:id="dNumber" prefWidth="127.0" text="numer telefonu" />
                     </columns>
                   </TableView>
                </content>

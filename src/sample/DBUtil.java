@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class DBUtil {
 
-    static final String username = "root";
-    static final String password = "mam2jaja";
-    static final String dbUrl = "jdbc:mysql://localhost:3306/mydb?autoReconnect=true&useSSL=false";//to get rid of SSL warning
+    private static final String username = "root";
+    private static final String password = "mam2jaja";
+    private static final String dbUrl = "jdbc:mysql://localhost:3306/mydb?autoReconnect=true&useSSL=false";//to get rid of SSL warning
 
     public static Connection getConnection() throws SQLException{
         return DriverManager.getConnection(dbUrl,username,password);
@@ -17,4 +17,6 @@ public class DBUtil {
     public static void showError(SQLException e ){
         System.err.println("Error: " + e.getMessage() +"\nError Code: " + e.getErrorCode());
     }
+
+
 }
