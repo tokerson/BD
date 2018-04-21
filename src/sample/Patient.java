@@ -56,6 +56,10 @@ public class Patient {
         return age;
     }
 
+    public int getAgeInt(){
+        return age.get();
+    }
+
     public void setAge(int age) {
         this.age.set(age);
     }

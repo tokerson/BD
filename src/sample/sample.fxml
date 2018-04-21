@@ -18,13 +18,13 @@
         <tabs>
           <Tab id="patientTab" text="Pacjenci">
                <content>
-                  <TableView fx:id="patientTableView" editable="true" prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="patientTableView" editable="true" prefHeight="571.0" prefWidth="681.0">
                     <columns>
-                      <TableColumn fx:id="pName" prefWidth="114.0" text="imię" />
-                      <TableColumn fx:id="pSurname" prefWidth="157.0" text="nazwisko" />
-                        <TableColumn fx:id="pID" minWidth="100.0" prefWidth="129.0" text="PESEL" />
-                        <TableColumn fx:id="pAge" prefWidth="34.0" text="wiek" />
-                        <TableColumn fx:id="pHone" minWidth="100.0" prefWidth="166.0" text="numer telefonu" />
+                      <TableColumn fx:id="pName" prefWidth="125.0" text="imię" />
+                      <TableColumn fx:id="pSurname" prefWidth="177.0" text="nazwisko" />
+                        <TableColumn fx:id="pID" minWidth="100.0" prefWidth="146.0" text="PESEL" />
+                        <TableColumn fx:id="pAge" prefWidth="43.0" text="wiek" />
+                        <TableColumn fx:id="pHone" minWidth="100.0" prefWidth="197.0" text="numer telefonu" />
                     </columns>
                   </TableView>
                </content>
@@ -35,11 +35,11 @@
                   <TableView fx:id="dentistTableView" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                         <TableColumn fx:id="dID" prefWidth="32.0" text="id" />
-                      <TableColumn fx:id="dName" prefWidth="105.0" text="imię" />
-                      <TableColumn fx:id="dSurname" prefWidth="167.0" text="nazwisko" />
-                        <TableColumn fx:id="dSalary" prefWidth="69.0" text="zarobki" />
-                        <TableColumn fx:id="dDate" minWidth="5.0" prefWidth="109.0" text="data zatrudnienia" />
-                        <TableColumn fx:id="dNumber" prefWidth="127.0" text="numer telefonu" />
+                      <TableColumn fx:id="dName" prefWidth="138.0" text="imię" />
+                      <TableColumn fx:id="dSurname" prefWidth="171.0" text="nazwisko" />
+                        <TableColumn fx:id="dSalary" prefWidth="81.0" text="zarobki" />
+                        <TableColumn fx:id="dDate" minWidth="5.0" prefWidth="108.0" text="data zatrudnienia" />
+                        <TableColumn fx:id="dNumber" prefWidth="158.0" text="numer telefonu" />
                     </columns>
                   </TableView>
                </content>
@@ -48,7 +48,7 @@
       </TabPane>
    </center>
    <right>
-      <GridPane id="gridPane" prefHeight="600.0" prefWidth="370.0" BorderPane.alignment="CENTER">
+      <GridPane id="gridPane" prefHeight="600.0" prefWidth="282.0" BorderPane.alignment="CENTER">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" prefWidth="228.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="154.0" minWidth="10.0" prefWidth="144.0" />

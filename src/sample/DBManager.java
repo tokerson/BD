@@ -10,12 +10,14 @@ public class DBManager {
     private Connection connection;
     private PreparedStatement selectPatientsStatement ;
     private PreparedStatement selectDentistsStatement ;
+    private PreparedStatement insertPatientStatement;
 
     public DBManager(){
         try {
             connection = DBUtil.getConnection();
             selectPatientsStatement = connection.prepareStatement("select * from pacjenci");
             selectDentistsStatement = connection.prepareStatement("select * from dentysci");
+            insertPatientStatement  = connection.prepareStatement("insert into pacjenci (imie,nazwisko,PESEL,wiek,nr_telefonu) values(?,?,?,?,?)");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,5 +60,20 @@ public class DBManager {
             e.printStackTrace();
         }
         return dentists;
+    }
+
+    public void insertPatient(Patient patient){
+        try{
+            insertPatientStatement.setString(1,patient.getFirstName());
+            insertPatientStatement.setString(2,patient.getLastName());
+            insertPatientStatement.setString(3,patient.getPESEL());
+            insertPatientStatement.setInt(4,patient.getAgeInt());
+            insertPatientStatement.setString(5,patient.getPhoneNumber());
+
+            insertPatientStatement.executeUpdate();
+            insertPatientStatement.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }

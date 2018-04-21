@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -11,10 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -73,15 +71,12 @@ public class Controller {
     }
 
     public void addPatient() {
-        Dialog<String> dialog = new Dialog<>();
-        GridPane gridPane = new GridPane();
 
-        gridPane.add(new Label("Podaj imię:"), 0, 0);
-        gridPane.add(new TextField(), 1, 0);
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL, ButtonType.APPLY);
-        dialog.getDialogPane().setContent(gridPane);
+        if(addChoiceBox.getValue().equals("Pacjent")) {
+            Dialog<Patient> dialog = new PatientDialog();
+            dialog.showAndWait().ifPresent(result -> dbManager.insertPatient(result));
+        }
 
-        Optional<String> result = dialog.showAndWait();
     }
 
     @FXML
