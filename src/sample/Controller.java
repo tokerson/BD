@@ -75,6 +75,7 @@ public class Controller {
         if(addChoiceBox.getValue().equals("Pacjent")) {
             Dialog<Patient> dialog = new PatientDialog();
             dialog.showAndWait().ifPresent(result -> dbManager.insertPatient(result));
+            getPatients();
         }
 
     }

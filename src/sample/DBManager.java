@@ -71,7 +71,7 @@ public class DBManager {
             insertPatientStatement.setString(5,patient.getPhoneNumber());
 
             insertPatientStatement.executeUpdate();
-            insertPatientStatement.close();
+            //insertPatientStatement.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
