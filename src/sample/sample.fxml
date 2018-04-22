@@ -59,17 +59,17 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#addPatient" prefHeight="39.0" prefWidth="237.0" text="Dodaj">
+            <Button fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#add" prefHeight="39.0" prefWidth="237.0" text="Dodaj">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="editButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#editPatient" prefHeight="39.0" prefWidth="237.0" text="Edytuj" GridPane.rowIndex="1">
+            <Button fx:id="editButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#edit" prefHeight="39.0" prefWidth="237.0" text="Edytuj" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="deleteButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#deletePatient" prefHeight="25.0" prefWidth="237.0" text="Usuń" GridPane.rowIndex="2">
+            <Button fx:id="deleteButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#delete" prefHeight="25.0" prefWidth="237.0" text="Usuń" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>

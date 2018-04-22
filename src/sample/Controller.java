@@ -59,27 +59,42 @@ public class Controller {
         dentistTableView.setItems(data);
     }
 
-    public void addPatient() {
+    public void add() {
         if (addChoiceBox.getValue().equals("Pacjent")) {
             Dialog<Patient> dialog = new PatientDialog(0);
             dialog.showAndWait().ifPresent(result -> dbManager.insertPatient(result));
             getPatients();
         }
+        if (addChoiceBox.getValue().equals("Dentysta")) {
+            Dialog<Dentist> dialog = new DentistDialog(0);
+            dialog.showAndWait().ifPresent(result -> dbManager.insertDentist(result));
+            getDentists();
+        }
     }
 
-    public void deletePatient() {
+    public void delete() {
         if (deleteChoiceBox.getValue().equals("Pacjent")) {
             Dialog<String> dialog = new PatientDialog(2, dbManager.getPesels());
             dialog.showAndWait().ifPresent(result -> dbManager.deletePatient(result));
             getPatients();
         }
+        if (deleteChoiceBox.getValue().equals("Dentysta")) {
+            Dialog<Integer> dialog = new DentistDialog(2, dbManager.getIds());
+            dialog.showAndWait().ifPresent(result -> dbManager.deleteDentist(result));
+            getDentists();
+        }
     }
 
-    public void editPatient(){
+    public void edit(){
         if(editChoiceBox.getValue().equals("Pacjent")){
             Dialog<Patient> dialog = new PatientDialog(1,dbManager.getPesels());
             dialog.showAndWait().ifPresent(result -> dbManager.editPatient(result));
             getPatients();
+        }
+        if(editChoiceBox.getValue().equals("Dentysta")){
+            Dialog<Dentist> dialog = new DentistDialog(1, dbManager.getIds());
+            dialog.showAndWait().ifPresent(result -> dbManager.editDentist(result));
+            getDentists();
         }
     }
 

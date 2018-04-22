@@ -21,7 +21,6 @@ public class Dentist {
         this.lastName = new SimpleStringProperty(lastName);
         this.salary = new SimpleIntegerProperty(salary);
         this.hireDate = new SimpleStringProperty(hireDate);
-//        this.hireDate = createSqlDate(hireDate);
         this.phoneNumber = new SimpleStringProperty(phoneNumber);
     }
 
