@@ -1,22 +1,38 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class PatientDialog extends Dialog {
 
     GridPane gridPane;
-
-    PatientDialog(){
+    //i == 0 -> createAddDialog, i == 1 -> createEditDialog, i == 2 ->createDeleteDialog
+    PatientDialog(int i ){
         super();
-        this.setTitle("Dodawanie nowego pacjenta");
-        this.setHeaderText("Podaj dane nowego pacjenta");
         gridPane = new GridPane();
         gridPane.setHgap(5);
         gridPane.setVgap(5);
+        if(i == 0) createAddDialog();
+    }
+
+    PatientDialog(int i, ArrayList list){
+        super();
+        gridPane = new GridPane();
+        gridPane.setHgap(5);
+        gridPane.setVgap(5);
+        if(i == 2) createDeleteDialog(list);
+    }
+
+
+    private void createAddDialog(){
+        this.setTitle("Dodawanie nowego pacjenta");
+        this.setHeaderText("Podaj dane nowego pacjenta");
         TextField name = new TextField();
         TextField surname = new TextField();
         TextField pesel = new TextField();
@@ -39,6 +55,23 @@ public class PatientDialog extends Dialog {
         });
         this.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         this.getDialogPane().setContent(gridPane);
+    }
 
+    private void createDeleteDialog(ArrayList list) {
+        this.setTitle("Usuwanie pacjenta");
+        this.setHeaderText("Wybierz PESEL pacjenta, którego chcesz usunąć");
+//        ChoiceBox choiceBox = new ChoiceBox();
+        ComboBox choiceBox = new ComboBox();
+        ObservableList<String> pesels = FXCollections.observableArrayList(list);
+        choiceBox.setItems(pesels);
+        gridPane.add(new Label("Wybierz PESEL:"),0,0);
+        gridPane.add(choiceBox,1,0);
+        setResultConverter(button->{
+            if(button == ButtonType.OK)
+                return choiceBox.getValue().toString();
+            else return null;
+        });
+        this.getDialogPane().getButtonTypes().addAll(ButtonType.OK,ButtonType.CANCEL);
+        this.getDialogPane().setContent(gridPane);
     }
 }

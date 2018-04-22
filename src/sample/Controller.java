@@ -1,21 +1,10 @@
 package sample;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
-import javafx.util.Callback;
-
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Optional;
-
 
 public class Controller {
 
@@ -71,13 +60,19 @@ public class Controller {
     }
 
     public void addPatient() {
-
-        if(addChoiceBox.getValue().equals("Pacjent")) {
-            Dialog<Patient> dialog = new PatientDialog();
+        if (addChoiceBox.getValue().equals("Pacjent")) {
+            Dialog<Patient> dialog = new PatientDialog(0);
             dialog.showAndWait().ifPresent(result -> dbManager.insertPatient(result));
             getPatients();
         }
+    }
 
+    public void deletePatient() {
+        if (deleteChoiceBox.getValue().equals("Pacjent")) {
+            Dialog<String> dialog = new PatientDialog(2, dbManager.getPesels());
+            dialog.showAndWait().ifPresent(result -> dbManager.deletePatient(result));
+            getPatients();
+        }
     }
 
     @FXML
@@ -108,7 +103,6 @@ public class Controller {
 
         getPatients();
         getDentists();
-
 
     }
 }

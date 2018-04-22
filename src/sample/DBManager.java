@@ -1,9 +1,6 @@
 package sample;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class DBManager {
@@ -71,9 +68,35 @@ public class DBManager {
             insertPatientStatement.setString(5,patient.getPhoneNumber());
 
             insertPatientStatement.executeUpdate();
-            //insertPatientStatement.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
     }
+
+    public ArrayList<String> getPesels(){
+        ArrayList<String> pesels = new ArrayList<>();
+        String query = "select PESEL from pacjenci";
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while(rs.next()){
+                pesels.add(rs.getString("PESEL"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return pesels;
+    }
+
+    public void deletePatient(String pesel){
+        try{
+            PreparedStatement ps = connection.prepareStatement("delete from pacjenci where PESEL = ?");
+            ps.setString(1,pesel);
+            ps.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 }
