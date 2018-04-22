@@ -1,5 +1,6 @@
 package sample;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -97,6 +98,44 @@ public class DBManager {
         }catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public void editPatient(Patient result){
+        try{//first i want to save previous state of Patient so if someone leave empty space in Dialog, then there will be no change on empty value
+            Patient patient = getPatient(result.getPESEL());
+            PreparedStatement ps = connection.prepareStatement("update pacjenci set imie=?,nazwisko=?,wiek=?,nr_telefonu=? where PESEL = ?");
+            ps.setString(5,result.getPESEL());
+            if(!result.getFirstName().isEmpty())
+                ps.setString(1,result.getFirstName());
+            else ps.setString(1,patient.getFirstName());
+            if(!result.getLastName().isEmpty())
+                ps.setString(2,result.getLastName());
+            else ps.setString(2,patient.getLastName());
+            if(result.getAgeInt() != -1)
+                ps.setInt(3,result.getAgeInt());
+            else ps.setInt(3,patient.getAgeInt());
+            if(!result.getPhoneNumber().isEmpty())
+                ps.setString(4,result.getPhoneNumber());
+            else ps.setString(4,patient.getPhoneNumber());
+            ps.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    private Patient getPatient(String pesel){
+        Patient patient = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from pacjenci where PESEL = ?");
+            ps.setString(1,pesel);
+            ResultSet rs = ps.executeQuery();
+            rs.next(); // because rs is standing BEFORE first element in column
+            patient = new Patient(rs.getString(2),rs.getString(3),
+                    pesel,rs.getString(5),rs.getInt(4));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+            return patient;
     }
 
 }

@@ -93,8 +93,13 @@ public class PatientDialog extends Dialog {
         textFields.add(phone);
         for(TextField textField : textFields){
             textField.setDisable(true);
+            textField.setPromptText("Pole nieobowiązkowe");
         }
-
+        choiceBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            for(TextField textField : textFields){
+                textField.setDisable(false);
+            }
+        });
         gridPane.add(new Label("Wybierz PESEL:"),0,0);
         gridPane.add(choiceBox,1,0);
         gridPane.add(new Label("Zmień imię:"),0,1);
@@ -107,8 +112,12 @@ public class PatientDialog extends Dialog {
         gridPane.add(phone,1,4);
 
         setResultConverter(button->{
-            if(button == ButtonType.OK)
-                return choiceBox.getValue().toString();
+            if(button == ButtonType.OK) {
+                int AGE;
+                if(age.getText().isEmpty()) AGE = -1; // this if to not parse nothing to Integer
+                else AGE = Integer.parseInt(age.getText());
+                return new Patient(name.getText(), surname.getText(), choiceBox.getValue().toString(), phone.getText(), AGE);
+            }
             else return null;
         });
         this.getDialogPane().getButtonTypes().addAll(ButtonType.OK,ButtonType.CANCEL);

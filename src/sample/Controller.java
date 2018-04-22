@@ -78,7 +78,8 @@ public class Controller {
     public void editPatient(){
         if(editChoiceBox.getValue().equals("Pacjent")){
             Dialog<Patient> dialog = new PatientDialog(1,dbManager.getPesels());
-            dialog.showAndWait();
+            dialog.showAndWait().ifPresent(result -> dbManager.editPatient(result));
+            getPatients();
         }
     }
 
