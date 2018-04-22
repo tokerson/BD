@@ -64,7 +64,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="editButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" prefHeight="39.0" prefWidth="237.0" text="Edytuj" GridPane.rowIndex="1">
+            <Button fx:id="editButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#editPatient" prefHeight="39.0" prefWidth="237.0" text="Edytuj" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>

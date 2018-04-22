@@ -26,6 +26,7 @@ public class PatientDialog extends Dialog {
         gridPane = new GridPane();
         gridPane.setHgap(5);
         gridPane.setVgap(5);
+        if(i == 1) createEditDialog(list);
         if(i == 2) createDeleteDialog(list);
     }
 
@@ -66,6 +67,45 @@ public class PatientDialog extends Dialog {
         choiceBox.setItems(pesels);
         gridPane.add(new Label("Wybierz PESEL:"),0,0);
         gridPane.add(choiceBox,1,0);
+        setResultConverter(button->{
+            if(button == ButtonType.OK)
+                return choiceBox.getValue().toString();
+            else return null;
+        });
+        this.getDialogPane().getButtonTypes().addAll(ButtonType.OK,ButtonType.CANCEL);
+        this.getDialogPane().setContent(gridPane);
+    }
+
+    private void createEditDialog(ArrayList list){
+        this.setTitle("Edytowanie pacjenta");
+        this.setHeaderText("Wybierz PESEL pacjenta, którego chcesz edytować");
+        ComboBox choiceBox = new ComboBox();
+        ObservableList<String> pesels = FXCollections.observableArrayList(list);
+        choiceBox.setItems(pesels);
+        ArrayList<TextField> textFields = new ArrayList<>();
+        TextField name = new TextField();
+        TextField surname = new TextField();
+        TextField age = new TextField();
+        TextField phone = new TextField();
+        textFields.add(name);
+        textFields.add(surname);
+        textFields.add(age);
+        textFields.add(phone);
+        for(TextField textField : textFields){
+            textField.setDisable(true);
+        }
+
+        gridPane.add(new Label("Wybierz PESEL:"),0,0);
+        gridPane.add(choiceBox,1,0);
+        gridPane.add(new Label("Zmień imię:"),0,1);
+        gridPane.add(new Label("Zmień nazwisko:"),0,2);
+        gridPane.add(new Label("Zmień wiek:"),0,3);
+        gridPane.add(new Label("Zmień numer telefonu:"),0,4);
+        gridPane.add(name,1,1);
+        gridPane.add(surname,1,2);
+        gridPane.add(age,1,3);
+        gridPane.add(phone,1,4);
+
         setResultConverter(button->{
             if(button == ButtonType.OK)
                 return choiceBox.getValue().toString();

@@ -75,6 +75,13 @@ public class Controller {
         }
     }
 
+    public void editPatient(){
+        if(editChoiceBox.getValue().equals("Pacjent")){
+            Dialog<Patient> dialog = new PatientDialog(1,dbManager.getPesels());
+            dialog.showAndWait();
+        }
+    }
+
     @FXML
     public void initialize() {
         ObservableList<String> choiceBoxes = FXCollections.observableArrayList("Pacjent", "Dentysta");
