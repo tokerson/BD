@@ -2,12 +2,10 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class PatientDialog extends Dialog {
 
