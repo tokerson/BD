@@ -4,8 +4,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.util.StringConverter;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DentistDialog extends Dialog {
 
@@ -31,12 +35,71 @@ public class DentistDialog extends Dialog {
     private void createAddDialog(){
         this.setTitle("Dodawanie nowego dentysty");
         this.setHeaderText("Podaj dane nowego dentysty");
+
         TextField name = new TextField();
         TextField surname = new TextField();
         TextField salary = new TextField();
-        TextField hireDate = new TextField();
-        hireDate.setPromptText("format yyyy-dd-mm");
         TextField phone = new TextField();
+        name.setPromptText("Pole obowiązkowe");
+        surname.setPromptText("Pole obowiązkowe");
+        salary.setPromptText("Pole obowiązkowe");
+
+        salary.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(thatLongIfStatement(name,surname,salary))
+                getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
+            else
+                getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
+        });
+        name.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(thatLongIfStatement(name,surname,salary))
+                getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
+            else
+                getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
+        });
+        surname.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(thatLongIfStatement(name,surname,salary))
+                getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
+            else
+                getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
+        });
+
+        DatePicker datePicker = new DatePicker();
+        datePicker.setEditable(false);
+        datePicker.setDayCellFactory(picker -> new DateCell(){
+            public void updateItem(LocalDate date,boolean empty){
+                super.updateItem(date,empty);
+                LocalDate today = LocalDate.now();
+                setDisable(empty || date.compareTo(today) > 0 );
+            }
+        });
+
+        datePicker.setConverter(new StringConverter<LocalDate>() {
+            String pattern = "yyyy-dd-MM";
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+            {
+                datePicker.setPromptText(pattern.toLowerCase());
+            }
+            @Override
+            public String toString(LocalDate date) {
+                if(date != null){
+                    return dateTimeFormatter.format(date);
+                }
+                else{
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()){
+                    return LocalDate.parse(string,dateTimeFormatter);
+                }
+                else{
+                    return null;
+                }
+            }
+        });
+
         gridPane.add(new Label("Podaj imię:"), 0, 0);
         gridPane.add(new Label("Podaj nazwisko:"), 0, 1);
         gridPane.add(new Label("Podaj zarobki:"), 0, 2);
@@ -45,15 +108,30 @@ public class DentistDialog extends Dialog {
         gridPane.add(name, 1, 0);
         gridPane.add(surname, 1, 1);
         gridPane.add(salary, 1, 2);
-        gridPane.add(hireDate, 1, 3);
+        gridPane.add(datePicker,1,3);
         gridPane.add(phone, 1, 4);
+
+        this.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        this.getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
+
         setResultConverter(button->{
-            if(button == ButtonType.OK)
-                return new Dentist(0,name.getText(),surname.getText(),Integer.parseInt(salary.getText()),hireDate.getText(),phone.getText());
+            if(button == ButtonType.OK) {
+                String hireDate ;
+                if(datePicker.getValue() == null) hireDate = null;
+                else hireDate = datePicker.getValue().toString();
+                return new Dentist(0, name.getText(), surname.getText(), Integer.parseInt(salary.getText()),hireDate, phone.getText());
+            }
             else return null;
         });
-        this.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
         this.getDialogPane().setContent(gridPane);
+    }
+
+    private boolean thatLongIfStatement(TextField name, TextField surname, TextField salary){
+        int Salary;
+        if(!salary.getText().matches("[0-9]+$")) return true;
+        else Salary = Integer.parseInt(salary.getText().toString());
+        return Salary <= 0 || Salary >= 130 || salary.getText().equals("") || name.getText().equals("") || surname.getText().equals("");
     }
 
     private void createDeleteDialog(ArrayList list) {
@@ -65,8 +143,10 @@ public class DentistDialog extends Dialog {
         gridPane.add(new Label("Wybierz ID dentysty:"),0,0);
         gridPane.add(choiceBox,1,0);
         setResultConverter(button->{
-            if(button == ButtonType.OK)
+            if(button == ButtonType.OK) {
+
                 return Integer.parseInt(choiceBox.getValue().toString());
+            }
             else return null;
         });
         this.getDialogPane().getButtonTypes().addAll(ButtonType.OK,ButtonType.CANCEL);
