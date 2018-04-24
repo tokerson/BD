@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+//class only made to get connection or show error when connecting to database
 public class DBUtil {
 
     private static final String username = "root";

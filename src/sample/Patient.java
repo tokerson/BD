@@ -3,9 +3,8 @@ package sample;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-
+//class to store data of Patients from database
+//has the same fields as the table pacjenci from database
 public class Patient {
 
     private SimpleStringProperty firstName;

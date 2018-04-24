@@ -3,10 +3,12 @@ package sample;
 import java.sql.*;
 import java.util.ArrayList;
 
+//class used to return data from database, whole backend job is done here
+
 public class DBManager {
     private Connection connection;
-    private PreparedStatement selectPatientsStatement ;
-    private PreparedStatement selectDentistsStatement ;
+    private PreparedStatement selectPatientsStatement;
+    private PreparedStatement selectDentistsStatement;
     private PreparedStatement insertPatientStatement;
     private PreparedStatement insertDentistStatement;
 
@@ -22,6 +24,7 @@ public class DBManager {
         }
     }
 
+    //returns an arraylist with Patient-class objects according to data in database
     public ArrayList<Patient> getPatients(){
         ArrayList<Patient> patients = new ArrayList<>();
         try {
@@ -41,6 +44,7 @@ public class DBManager {
         return patients;
     }
 
+    //returns an arraylist with Dentist-class objects according to data in database
     public ArrayList<Dentist> getDentists(){
         ArrayList<Dentist> dentists = new ArrayList<>();
         try {
@@ -61,6 +65,7 @@ public class DBManager {
         return dentists;
     }
 
+    //inserts given patient into a database
     public void insertPatient(Patient patient){
         try{
             insertPatientStatement.setString(1,patient.getFirstName());
@@ -74,6 +79,8 @@ public class DBManager {
             e.printStackTrace();
         }
     }
+
+    //inserts given dentist into a database
     public void insertDentist(Dentist dentist){
         try{
             insertDentistStatement.setString(1,dentist.getFirstName());
@@ -88,6 +95,7 @@ public class DBManager {
         }
     }
 
+    //returns an arraylist with all pesels from table pacjenci
     public ArrayList<String> getPesels(){
         ArrayList<String> pesels = new ArrayList<>();
         String query = "select PESEL from pacjenci";
@@ -103,6 +111,7 @@ public class DBManager {
         return pesels;
     }
 
+    //returns an arraylist with all idDentysty from table dentysci
     public ArrayList<Integer> getIds(){
         ArrayList<Integer> ids = new ArrayList<>();
         String query = "select idDentysty from dentysci";
@@ -118,6 +127,7 @@ public class DBManager {
         return ids;
     }
 
+    //removes Patient with given PESEL from database
     public void deletePatient(String pesel){
         try{
             PreparedStatement ps = connection.prepareStatement("delete from pacjenci where PESEL = ?");
@@ -128,6 +138,7 @@ public class DBManager {
         }
     }
 
+    //removes Dentist with given ID from database
     public void deleteDentist(int id){
         try{
             PreparedStatement ps = connection.prepareStatement("delete from dentysci where idDentysty= ?");
@@ -138,6 +149,7 @@ public class DBManager {
         }
     }
 
+    //allows user to edit a Patient
     public void editPatient(Patient result){
         try{//first i want to save previous state of Patient so if someone leave empty space in Dialog, then there will be no change on empty value
             Patient patient = getPatient(result.getPESEL());
@@ -161,6 +173,7 @@ public class DBManager {
         }
     }
 
+    //allows user to edit a Dentist
     public void editDentist(Dentist result){
         try{//first i want to save previous state of Patient so if someone leave empty space in Dialog, then there will be no change on empty value
             Dentist dentist = getDentist(result.getID().get());
@@ -184,6 +197,7 @@ public class DBManager {
         }
     }
 
+    //returns a Patient with that particular unique PESEL
     private Patient getPatient(String pesel){
         Patient patient = null;
         try {
@@ -199,6 +213,7 @@ public class DBManager {
             return patient;
     }
 
+    //returns a Dentist with that particular unique ID
     private Dentist getDentist(int id){
         Dentist dentist = null;
         try {
@@ -214,4 +229,83 @@ public class DBManager {
         return dentist;
     }
 
+    //==========================================================================
+    // now bunch of methods for statistics purpose
+    //==========================================================================
+
+    //returns number of dentists in database
+    public int numberOfDentists(){
+        int number = 0;
+        try{
+            String query = "select count(idDentysty) from dentysci";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            rs.next();
+            number = rs.getInt(1);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return number;
+    }
+
+    //returns number of patients in database
+    public int numberOfPatients(){
+        int number = 0;
+        try{
+            String query = "select count(PESEL) from pacjenci";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            rs.next();
+            number = rs.getInt(1);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return number;
+    }
+
+    //returns an averageSalary of all the Dentists
+    public double averageSalary(){
+        double avg = 0;
+        try{
+            String query = "select avg(wynagrodzenie) from dentysci";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            rs.next();
+            avg = rs.getDouble(1);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return avg;
+    }
+
+    //returns an averageAge of all the Patients
+    public double averageAge(){
+        double avg = 0;
+        try{
+            String query = "select avg(wiek) from pacjenci";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            rs.next();
+            avg = rs.getDouble(1);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return avg;
+    }
+
+    //returns a sum of costs of registered treatments
+    public int earnings(){
+        int earnings = 0;
+        try{
+            String query = "SELECT SUM(cena) FROM zabiegi,zabiegi_na_rejestracje,rejestracje,pacjenci " +
+                 "WHERE idZabiegu = Zabiegi_idZabiegu AND idRejestracji = Rejestracje_idRejestracji AND pacjent = PESEL";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            rs.next();
+            earnings = rs.getInt(1);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return earnings;
+    }
 }

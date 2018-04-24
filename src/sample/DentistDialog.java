@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+//class extending Dialog class to specify the View of Dialogs created in Controller class
 public class DentistDialog extends Dialog {
 
     GridPane gridPane;
@@ -31,6 +32,7 @@ public class DentistDialog extends Dialog {
         if(i == 2) createDeleteDialog(list);
     }
 
+    //specifies the look of Add Dialog , adds listeners to some objects and converts the result
     private void createAddDialog(){
         this.setTitle("Dodawanie nowego dentysty");
         this.setHeaderText("Podaj dane nowego dentysty");
@@ -131,11 +133,12 @@ public class DentistDialog extends Dialog {
     }
 
     //function used to check whether OK button can be clicked in createAddDialog() or not
-
     private boolean thatLongIfStatement(TextField name, TextField surname, TextField salary){
         return (!salary.getText().matches("[0-9]+$") || name.getText().matches(".*\\d+.*") || name.getText().length() == 0 || surname.getText().matches(".*\\d+.*") || surname.getText().length() == 0 || salary.getText().length() >= 10);
     }
 
+    //specifies the look of Delete Dialog, allow user to choose which Dentist he wants to remove by
+    //choosing an unique ID from comboBox
     private void createDeleteDialog(ArrayList list) {
         this.setTitle("Usuwanie dentysty");
         this.setHeaderText("Wybierz ID dentysty, którego chcesz usunąć");
@@ -160,6 +163,7 @@ public class DentistDialog extends Dialog {
         this.getDialogPane().setContent(gridPane);
     }
 
+    //specifies the look of Edit Dialog, no field is obligatory.
     private void createEditDialog(ArrayList list){
         this.setTitle("Edytowanie dentysty");
         this.setHeaderText("Wybierz ID dentysty, którego chcesz edytować");
@@ -175,10 +179,6 @@ public class DentistDialog extends Dialog {
 
         //following 3 listeners will check if OK button can be pressed
         salary.textProperty().addListener((observable, oldValue, newValue) -> {
-//            if((salary.getText().length() >0 && !salary.getText().matches("[0-9]+$")) || (name.getText().length() > 0 && !name.getText().matches("[a-zA-Z]+$")) || ( surname.getText().length() > 0 && !surname.getText().matches("[a-zA-z]+$")) || salary.getText().length() >= 10)
-//                getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
-//            else
-//                getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
             getDialogPane().lookupButton(ButtonType.OK).setDisable(!salary.getText().matches("[0-9]+$") || name.getText().matches(".*\\d+.*") || surname.getText().matches(".*\\d+.*")  || salary.getText().length() >= 10);
         });
         name.textProperty().addListener((observable, oldValue, newValue) -> {

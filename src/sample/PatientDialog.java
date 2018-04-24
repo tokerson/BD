@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import static java.lang.Math.toIntExact;
 
+//class extending Dialog class to specify the View of Dialogs created in Controller class
 public class PatientDialog extends Dialog {
 
     GridPane gridPane;
@@ -30,7 +31,7 @@ public class PatientDialog extends Dialog {
         if(i == 2) createDeleteDialog(list);
     }
 
-
+    //specifies the look of Add Dialog , adds listeners to some objects and converts the result
     private void createAddDialog(){
         this.setTitle("Dodawanie nowego pacjenta");
         this.setHeaderText("Podaj dane nowego pacjenta");
@@ -91,10 +92,13 @@ public class PatientDialog extends Dialog {
         this.getDialogPane().setContent(gridPane);
     }
 
+    //function that is just a long if that decide if OK button should be clickable
     private boolean thatLongIfStatement(TextField name, TextField surname,TextField age){
         return (age.getText().length() == 0 || name.getText().matches(".*\\d+.*") || name.getText().length() == 0 || surname.getText().matches(".*\\d+.*") || surname.getText().length() == 0) ;
     }
 
+    //specifies the look of Delete Dialog, allow user to choose which Patient he wants to remove by
+    //choosing an unique PESEL from comboBox
     private void createDeleteDialog(ArrayList list) {
         this.setTitle("Usuwanie pacjenta");
         this.setHeaderText("Wybierz PESEL pacjenta, którego chcesz usunąć");
@@ -117,6 +121,7 @@ public class PatientDialog extends Dialog {
         this.getDialogPane().setContent(gridPane);
     }
 
+    //specifies the look of Edit Dialog, no field is obligatory.
     private void createEditDialog(ArrayList list){
         this.setTitle("Edytowanie pacjenta");
         this.setHeaderText("Wybierz PESEL pacjenta, którego chcesz edytować");

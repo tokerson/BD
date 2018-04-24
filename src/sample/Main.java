@@ -1,5 +1,18 @@
 package sample;
 
+/**
+ * The DataBase program implements an application that
+ * allows a user to make changes on a database of the
+ * dental office. In this version it only allows making
+ * changes to tables with Patients and Dentists.
+ * It also shows some of the basic statistics from database.
+ * Project made for DataBase classes at WUT EiTI Faculty.
+ *
+ * @author  Jakub Tokarzewski
+ * @version 1.0
+ * @since   2018-04-16
+ */
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,7 +29,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Baza Danych - Jakub Tokarzewski");
         primaryStage.setScene(new Scene(root, 970, 600));//golden proportion (a+b)/a = a/b
         primaryStage.setResizable(false);
         primaryStage.show();

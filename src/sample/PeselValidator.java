@@ -2,8 +2,8 @@ package sample;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
 
+//class to check if given Pesel is valid and containing methods to calculate age according to PESEL.
 public class PeselValidator {
 
     private byte PESEL[] = new byte[11];

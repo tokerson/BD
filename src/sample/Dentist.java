@@ -3,10 +3,9 @@ package sample;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
+//class to store data of Dentists from database
+//has the same fields as the table dentysci from database
 public class Dentist {
     private SimpleIntegerProperty ID;
     private SimpleStringProperty firstName;
@@ -24,16 +23,7 @@ public class Dentist {
         this.phoneNumber = new SimpleStringProperty(phoneNumber);
     }
 
-    private static java.sql.Date createSqlDate(String date){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-dd-MM");
-        java.sql.Date formattedDate = null;
-        try {
-            formattedDate = (Date) formatter.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return formattedDate;
-    }
+
     public SimpleIntegerProperty getID() {
         return ID;
     }
