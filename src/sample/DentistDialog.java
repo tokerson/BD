@@ -43,25 +43,16 @@ public class DentistDialog extends Dialog {
         surname.setPromptText("Pole obowiązkowe");
         salary.setPromptText("Pole obowiązkowe, max 9 cyfr");
 
-        //these 3 listeners will check if OK button can be pressed
+        //following 3 listeners will check if OK button can be pressed
 
         salary.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(thatLongIfStatement(name,surname,salary))
-                getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
-            else
-                getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
+            getDialogPane().lookupButton(ButtonType.OK).setDisable(thatLongIfStatement(name,surname,salary));
         });
         name.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(thatLongIfStatement(name,surname,salary))
-                getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
-            else
-                getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
+            getDialogPane().lookupButton(ButtonType.OK).setDisable(thatLongIfStatement(name,surname,salary));
         });
         surname.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(thatLongIfStatement(name,surname,salary))
-                getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
-            else
-                getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
+            getDialogPane().lookupButton(ButtonType.OK).setDisable(thatLongIfStatement(name,surname,salary));
         });
 
         //creating datePicker and disabling manually adding date with keyboard plus
@@ -142,10 +133,7 @@ public class DentistDialog extends Dialog {
     //function used to check whether OK button can be clicked in createAddDialog() or not
 
     private boolean thatLongIfStatement(TextField name, TextField surname, TextField salary){
-        int Salary;
-        if(!salary.getText().matches("[0-9]+$") || !name.getText().matches("[a-zA-Z]+$") || !surname.getText().matches("[a-zA-z]+$") || salary.getText().length() >= 10) return true;
-        else Salary = Integer.parseInt(salary.getText().toString());
-        return Salary < 0 || salary.getText().equals("") || name.getText().equals("") || surname.getText().equals("");
+        return (!salary.getText().matches("[0-9]+$") || name.getText().matches(".*\\d+.*") || name.getText().length() == 0 || surname.getText().matches(".*\\d+.*") || surname.getText().length() == 0 || salary.getText().length() >= 10);
     }
 
     private void createDeleteDialog(ArrayList list) {
@@ -185,24 +173,19 @@ public class DentistDialog extends Dialog {
         TextField salary = new TextField();
         TextField phone = new TextField();
 
-        //these 3 listeners will check if OK button can be pressed
+        //following 3 listeners will check if OK button can be pressed
         salary.textProperty().addListener((observable, oldValue, newValue) -> {
-            if((salary.getText().length() >0 && !salary.getText().matches("[0-9]+$")) || (name.getText().length() > 0 && !name.getText().matches("[a-zA-Z]+$")) || ( surname.getText().length() > 0 && !surname.getText().matches("[a-zA-z]+$")) || salary.getText().length() >= 10)
-                getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
-            else
-                getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
+//            if((salary.getText().length() >0 && !salary.getText().matches("[0-9]+$")) || (name.getText().length() > 0 && !name.getText().matches("[a-zA-Z]+$")) || ( surname.getText().length() > 0 && !surname.getText().matches("[a-zA-z]+$")) || salary.getText().length() >= 10)
+//                getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
+//            else
+//                getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
+            getDialogPane().lookupButton(ButtonType.OK).setDisable(!salary.getText().matches("[0-9]+$") || name.getText().matches(".*\\d+.*") || surname.getText().matches(".*\\d+.*")  || salary.getText().length() >= 10);
         });
         name.textProperty().addListener((observable, oldValue, newValue) -> {
-            if((salary.getText().length() >0 && !salary.getText().matches("[0-9]+$")) || (name.getText().length() > 0 && !name.getText().matches("[a-zA-Z]+$")) || ( surname.getText().length() > 0 && !surname.getText().matches("[a-zA-z]+$")) || salary.getText().length() >= 10)
-                getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
-            else
-                getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
+            getDialogPane().lookupButton(ButtonType.OK).setDisable(!salary.getText().matches("[0-9]+$") || name.getText().matches(".*\\d+.*") || surname.getText().matches(".*\\d+.*")  || salary.getText().length() >= 10);
         });
         surname.textProperty().addListener((observable, oldValue, newValue) -> {
-            if((salary.getText().length() >0 && !salary.getText().matches("[0-9]+$")) || (name.getText().length() > 0 && !name.getText().matches("[a-zA-Z]+$")) || ( surname.getText().length() > 0 && !surname.getText().matches("[a-zA-z]+$")) || salary.getText().length() >= 10)
-                getDialogPane().lookupButton(ButtonType.OK).setDisable(true);
-            else
-                getDialogPane().lookupButton(ButtonType.OK).setDisable(false);
+            getDialogPane().lookupButton(ButtonType.OK).setDisable(!salary.getText().matches("[0-9]+$") || name.getText().matches(".*\\d+.*") || surname.getText().matches(".*\\d+.*")  || salary.getText().length() >= 10);
         });
 
         //adding my textfields to an ArrayList textFields to have easier work when operating on all textfields

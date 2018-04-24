@@ -1,8 +1,10 @@
 package sample;
 
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Patient {
 
